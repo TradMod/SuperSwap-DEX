@@ -19,7 +19,5 @@ contract PKR is ERC20 {
         supplyMinted += inputAmount * 10**18;
         _mint(msg.sender, inputAmount * 10**18);
     }
-
-    ///// 0xFC0966D72e05dA834d33E8B36ac64C4878d374B9
     
 }
