@@ -23,11 +23,11 @@ contract SuperSwap is ERC20 {
         PKR.transfer(msg.sender, amountPKR);
     }
 
-    function swapPKRtoETH(uint256 amountPKR) public payable {
+    function swapPKRtoETH(uint256 amountPKR) public {
         require(amountPKR > 0, "Not enough PKR sent");
         PKR.transferFrom(msg.sender, address(this), amountPKR);
         uint256 rPKR = reservePKR();
-        uint256 amountETH = (address(this).balance * msg.value) / (rPKR + msg.value);
+        uint256 amountETH = (address(this).balance * amountPKR) / (rPKR + amountPKR);
         (bool success, ) = payable(msg.sender).call{value: amountETH}("");
         require(success);
     }
