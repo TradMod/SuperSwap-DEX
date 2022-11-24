@@ -7,7 +7,7 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
     /**
      * @author ABDul Rehman
      * @title  SuperSwap V1
-    */
+    **/
 contract SuperSwap is ERC20 {
 
     IERC20 private PKR;
@@ -17,7 +17,15 @@ contract SuperSwap is ERC20 {
     }
 
     function addLiquidity(uint256 amountPKR) public payable {
-        PKR.transferFrom(msg.sender, address(this), amountPKR);
+        if(reservePKR() == 0){
+            PKR.transferFrom(msg.sender, address(this), amountPKR);
+        } else {
+            uint256 rPKR = reservePKR();
+            uint256 rETH = address(this).balance - msg.value;
+            uint256 amount_PKR = (msg.value * rPKR) / rETH;
+            require(amountPKR >= amount_PKR, "not enough PKR sent");
+            PKR.transferFrom(msg.sender, address(this), amountPKR);
+        }
     }
 
     function swapETHtoPKR() public payable {
