@@ -14,6 +14,7 @@ contract SuperSwap is ERC20 {
     IERC20 public immutable PKR;
 
     constructor(address _addressPKR) ERC20("SuperSwap", "SUPER"){
+        require(_addressPKR != address(0), "Zero Address");
         PKR = IERC20(_addressPKR);
     }
 
@@ -22,6 +23,8 @@ contract SuperSwap is ERC20 {
      * @notice rPKR = PKR reserves
     **/
     function addLiquidity(uint256 _amountPKR) public payable returns(uint256){
+        require(_amountPKR > 0, "invalid input");
+        require(msg.value > 0, "not enough ETH sent");
         if(reservePKR() == 0){
             PKR.transferFrom(msg.sender, address(this), _amountPKR);
             uint256 liquidityProvided = address(this).balance;
@@ -40,6 +43,7 @@ contract SuperSwap is ERC20 {
     }
 
     function removeLiquidity(uint256 _amount) public returns(uint256, uint256){
+        require(_amountPKR > 0, "invalid input");
         uint256 rETH = address(this).balance;
         uint256 rPKR = reservePKR();
         uint256 amountETH = (_amount * rETH) / totalSupply();
