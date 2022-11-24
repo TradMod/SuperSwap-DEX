@@ -7,13 +7,16 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
     /**
      * @author ABDul Rehman
      * @title  SuperSwap V1
+     * @notice Uniswap V1 clone
     **/
 contract SuperSwap is ERC20 {
 
-    IERC20 public PKR;
+    IERC20 public immutable PKR;
+    address public immutable superFactoryContract;
 
     constructor(address _addressPKR) ERC20("SuperSwap", "SUPER"){
         PKR = IERC20(_addressPKR);
+        superFactoryContract = msg.sender;
     }
 
     /**
