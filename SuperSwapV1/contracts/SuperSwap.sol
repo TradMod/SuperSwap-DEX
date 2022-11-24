@@ -43,7 +43,7 @@ contract SuperSwap is ERC20 {
     }
 
     function removeLiquidity(uint256 _amount) public returns(uint256, uint256){
-        require(_amountPKR > 0, "invalid input");
+        require(_amount > 0, "invalid input");
         uint256 rETH = address(this).balance;
         uint256 rPKR = reservePKR();
         uint256 amountETH = (_amount * rETH) / totalSupply();
