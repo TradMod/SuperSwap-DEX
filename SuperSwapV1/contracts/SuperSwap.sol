@@ -12,11 +12,9 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 contract SuperSwap is ERC20 {
 
     IERC20 public immutable PKR;
-    address public immutable superFactoryContract;
 
     constructor(address _addressPKR) ERC20("SuperSwap", "SUPER"){
         PKR = IERC20(_addressPKR);
-        superFactoryContract = msg.sender;
     }
 
     /**
