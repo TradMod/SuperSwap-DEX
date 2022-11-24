@@ -69,7 +69,7 @@ contract SuperSwap is ERC20 {
     }
 
     /**
-     * @notice Swap Fee: 0.5%
+     * @notice Swap-Fee: 0.5%
     **/
     function getAmount(uint256 inputAmount, uint256 reserveX, uint256 reserveY) public pure returns(uint256) {
         uint256 inputAmountWithFee = inputAmount * 995;
