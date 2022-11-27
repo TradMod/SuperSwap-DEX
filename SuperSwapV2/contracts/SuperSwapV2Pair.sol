@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.7;
 
+import "./SuperSwapErrors.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
@@ -58,6 +59,8 @@ contract SuperSwapV2Pair is ERC20, ReentrancyGuard {
             liquidity = ((amountX * totalSupply()) / reserveX) - ((amountY * totalSupply()) / reserveY);
         }
 
+        if(liquidity <= 0) revert InsufficientLiqidityProvided();
+
         _mint(to, liquidity);
 
         update(balanceX, balanceY);
@@ -70,6 +73,8 @@ contract SuperSwapV2Pair is ERC20, ReentrancyGuard {
         uint256 balanceY = tokenY.balanceOf(address(this));
 
         uint256 liquidity = balanceOf(to);
+
+        if(liquidity <= 0) revert ZeroLiqidityProvided();
         
         uint256 amountX = (liquidity * balanceX) / totalSupply();
         uint256 amountY = (liquidity * balanceY) / totalSupply();
