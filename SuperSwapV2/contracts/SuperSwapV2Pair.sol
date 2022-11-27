@@ -6,6 +6,6 @@ pragma solidity 0.8.7;
      * @title  SuperSwap V2
      * @notice Uniswap V2 clone
     **/
-contract SuperSwap {
+contract SuperSwapV2Pair {
     
 }
