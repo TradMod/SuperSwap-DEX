@@ -22,14 +22,18 @@ contract SuperSwapV2Pair is ERC20, ReentrancyGuard {
     uint256 public priceXCumulativeLast;
     uint256 public priceYCumulativeLast;
 
-    IERC20 public immutable tokenX;
-    IERC20 public immutable tokenY;
+    IERC20 public tokenX;
+    IERC20 public tokenY;
 
     uint256 public constant MINIMUM_LIQUIDITY = 1000; 
 
-    constructor(address _tokenX, address _tokenY) ERC20("SuperSwap", "SUPER"){
-        tokenX = IERC20(_tokenX);
-        tokenY = IERC20(_tokenY);
+    constructor() ERC20("SuperSwap", "SUPER"){}
+
+    function initialize(address tokenA, address tokenB) public {
+        if(tokenX != IERC20(address(0)) || tokenY != IERC20(address(0))) revert TokensAlreadyInitialized();
+
+        tokenX = IERC20(tokenA);
+        tokenY = IERC20(tokenB);
     }
 
     function mint(address to) public {
@@ -137,6 +141,5 @@ contract SuperSwapV2Pair is ERC20, ReentrancyGuard {
 
         return (reserve_X, reserve_Y, balance_X, balance_Y);
     }
-
 
 }
