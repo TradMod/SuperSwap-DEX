@@ -36,7 +36,7 @@ contract SuperSwapV2Pair is ERC20, ReentrancyGuard {
         tokenY = IERC20(tokenB);
     }
 
-    function mint(address to) public {
+    function mint(address to) public returns(uint256) {
         uint256 balanceX = tokenX.balanceOf(address(this));
         uint256 balanceY = tokenY.balanceOf(address(this));
 
@@ -58,6 +58,8 @@ contract SuperSwapV2Pair is ERC20, ReentrancyGuard {
         update(balanceX, balanceY);
 
         emit LiquidityIn(to, liquidity, amountX, amountY);
+
+        return liquidity;
     }
 
     function burn(address to) public nonReentrant {

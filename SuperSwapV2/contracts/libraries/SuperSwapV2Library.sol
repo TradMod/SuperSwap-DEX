@@ -31,7 +31,11 @@ library SuperSwapV2Library {
         return pairAddress = address(uint160(uint256(pairHash)));
     }
 
-    // function qoute() internal view returns() {
-
-    // }
+    function quote(uint256 amountIn, uint256 reserveIn, uint256 reserveOut) internal pure returns (uint256 amountOut) {
+        if (amountIn == 0) revert InsufficientAmount();
+        if (reserveIn == 0 || reserveOut == 0) revert InsufficientLiqidity();
+        
+        return (amountIn * reserveOut) / reserveIn;
+    }
+    
 }

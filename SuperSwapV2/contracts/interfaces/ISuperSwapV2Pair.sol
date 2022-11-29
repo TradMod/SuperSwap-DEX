@@ -3,7 +3,7 @@ pragma solidity 0.8.7;
 
 interface ISuperSwapV2Pair {
 
-    function mint(address) external;   
+    function mint(address) external returns(uint256);   
 
     function burn(address) external;
 
