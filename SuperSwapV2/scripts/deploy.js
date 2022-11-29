@@ -1,14 +1,14 @@
 const {ethers} = require("hardhat");
 
 async function main() {
-  const SuperSwapContract = await ethers.getContractFactory("SuperSwap");
-  const deployedSuperSwap = await SuperSwapContract.deploy("");
-  await deployedSuperSwap.deployed();
-  console.log(`SuperSwap Contract Address: ${deployedSuperSwap.address}`);
+  const SuperSwapV2FactoryContract = await ethers.getContractFactory("SuperSwapV2Factory");
+  const deployedSuperSwapV2Factory = await SuperSwapV2FactoryContract.deploy();
+  await deployedSuperSwapV2Factory.deployed();
+  console.log(`SuperSwapV2Factory Contract Address: ${deployedSuperSwapV2Factory.address}`);
 
     console.log("Waiting for block confirmations & Verifying.....")
-    await deployedSuperSwap.deployTransaction.wait(5)
-    await verify(deployedSuperSwap.address, [""])
+    await deployedSuperSwapV2Factory.deployTransaction.wait(5)
+    await verify(deployedSuperSwapV2Factory.address, [])
 }
 
 const verify = async (contractAddress, args) => {
