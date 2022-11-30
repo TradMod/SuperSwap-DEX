@@ -37,7 +37,23 @@ contract SuperSwapV2Router {
         liquidity = ISuperSwapV2Pair(pairAddress).mint(to);
 
         return (liquidity, amountA, amountB);
+    }
 
+    function removeLiquidity(
+        address tokenA,
+        address tokenB, 
+        uint256 liquidity, 
+        uint256 amountAmin,
+        uint256 amountBmin,
+        address to
+    ) public returns(uint256 amountA, uint256 amountB){
+        address pairAddress = SuperSwapV2Library.pairFor(address(superSwapFactory), tokenA, tokenB);
+        ISuperSwapV2Pair(pairAddress).transferFrom(msg.sender, pairAddress, liquidity);
+        (amountA, amountB) = ISuperSwapV2Pair(pairAddress).burn(to);
+        if(amountA < amountAmin) revert InsufficientAmountA();
+        if(amountB < amountBmin) revert InsufficientAmountB();
+
+        return (amountA, amountB);
     }
 
     function calculateAmount(

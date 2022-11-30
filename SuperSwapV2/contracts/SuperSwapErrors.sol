@@ -6,6 +6,8 @@ error SameAddresses();
 error InsufficientAmount();
 error PairsAlreadyExists();
 error RequirementsNotMet();
+error InsufficientAmountA();
+error InsufficientAmountB();
 error ZeroLiqidityProvided();
 error InsufficientLiqidity();
 error TokensAlreadyInitialized();
