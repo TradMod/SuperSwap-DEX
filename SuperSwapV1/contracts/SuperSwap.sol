@@ -5,7 +5,7 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
     /**
-     * @author ABDul Rehman
+     * @author ABDul Rehman (DevABDee)
      * @title  SuperSwap V1
      * @notice Uniswap V1 clone
     **/
